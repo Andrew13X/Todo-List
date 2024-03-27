@@ -18,10 +18,10 @@ python manage.py runserver
 
 ## Features
 
-1. The site is available only for all users.
+1. The site is available for all users.
 
-2. On the home page there are list of tasks.
+2. On the home page there are the list of tasks.
 
 3. Each task has content, creation date, status information (done or not done) and related tags
 
-4. When clicking tags you will enter page with tags list.
+4. When clicking on tags you will enter page with tags list.
