@@ -9,14 +9,11 @@ class Tag(models.Model):
 
 
 class Task(models.Model):
-    STATUS_CHOICES = (("Done", "Done"), ("Not done", "Not done"))
+    STATUS_CHOICES = ((True, "Done"), (False, "Not done"))
     content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     deadline = models.DateTimeField(blank=True, null=True)
-    status = models.CharField(
-        max_length=8,
-        choices=STATUS_CHOICES,
-        default="Not done")
+    status = models.BooleanField(choices=STATUS_CHOICES, default=False)
     tags = models.ManyToManyField(Tag, related_name="tags")
 
     def __str__(self):
