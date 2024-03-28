@@ -15,11 +15,11 @@
           <strong>{{ task.content }}
             <form action="{% url 'catalog:toggle-complete-undo' pk=task.id %}" method="post">
               {% csrf_token %}
-              {% if task.status == "Not done" %}
-                <span class="text-danger">{{ task.status }}</span>
+              {% if not task.status %}
+                <span class="text-danger">{{ task.get_status_display }}</span>
                 <button class="btn btn-success float-right">Complete</button>
               {% else %}
-                <span class="text-success">{{ task.status }}</span>
+                <span class="text-success">{{ task.get_status_display }}</span>
                 <button class="btn btn-secondary float-right">Undo</button>
               {% endif %}
             </form>

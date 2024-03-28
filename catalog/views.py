@@ -63,10 +63,10 @@ class TaskDeleteView(generic.DeleteView):
 class ToggleCompleteUndo(View):
     def post(self, request, *args, **kwargs):
         task = Task.objects.get(id=kwargs["pk"])
-        if task.status == "Done":
-            task.status = "Not done"
+        if task.status:
+            task.status = False
             task.save()
-        elif task.status == "Not done":
-            task.status = "Done"
+        elif not task.status:
+            task.status = True
             task.save()
         return HttpResponseRedirect(reverse_lazy("catalog:index"))
