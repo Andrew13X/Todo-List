@@ -13,15 +13,16 @@
       <li>
         <p class="text-justify">
           <strong>{{ task.content }}
-            {% if task.status == "Not done" %}
-              <span class="text-danger">{{ task.status }}</span>
-              <a href="{% url 'catalog:toggle-complete-undo' pk=task.id %}"
-                 class="btn btn-success float-right">Complete</a>
-            {% else %}
-              <span class="text-success">{{ task.status }}</span>
-              <a href="{% url 'catalog:toggle-complete-undo' pk=task.id %}"
-                 class="btn btn-secondary float-right">Undo</a>
-            {% endif %}
+            <form action="{% url 'catalog:toggle-complete-undo' pk=task.id %}" method="post">
+              {% csrf_token %}
+              {% if task.status == "Not done" %}
+                <span class="text-danger">{{ task.status }}</span>
+                <button class="btn btn-success float-right">Complete</button>
+              {% else %}
+                <span class="text-success">{{ task.status }}</span>
+                <button class="btn btn-secondary float-right">Undo</button>
+              {% endif %}
+            </form>
           </strong>
         </p>
         <p>Created: {{ task.created }} {% if task.deadline %} Deadline: {{ task.deadline }}

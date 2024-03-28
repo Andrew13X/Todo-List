@@ -1,6 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic import View
 
 from catalog.models import Tag, Task
 from catalog.forms import TaskForm
@@ -59,12 +60,13 @@ class TaskDeleteView(generic.DeleteView):
     success_url = reverse_lazy("catalog:index")
 
 
-def toggle_complete_undo(request, pk):
-    task = Task.objects.get(id=pk)
-    if task.status == "Done":
-        task.status = "Not done"
-        task.save()
-    elif task.status == "Not done":
-        task.status = "Done"
-        task.save()
-    return HttpResponseRedirect(reverse_lazy("catalog:index"))
+class ToggleCompleteUndo(View):
+    def post(self, request, *args, **kwargs):
+        task = Task.objects.get(id=kwargs["pk"])
+        if task.status == "Done":
+            task.status = "Not done"
+            task.save()
+        elif task.status == "Not done":
+            task.status = "Done"
+            task.save()
+        return HttpResponseRedirect(reverse_lazy("catalog:index"))
