@@ -9,7 +9,7 @@ from catalog.views import (
     TaskDeleteView,
     TagDeleteView,
     TaskUpdateView,
-    toggle_complete_undo
+    ToggleCompleteUndo
 )
 
 urlpatterns = [
@@ -31,7 +31,7 @@ urlpatterns = [
     ),
     path(
         "task/<int:pk>/toggle-complete-undo/",
-        toggle_complete_undo,
+        ToggleCompleteUndo.as_view(),
         name="toggle-complete-undo"
     )
 ]
